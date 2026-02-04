@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auth Website</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js"></script>
+    <script>
+        const API_URL = "http://localhost:3000";
+
+        const signup = async () => {
+            const username = document.getElementById("signup-username").value;
+            const password = document.getElementById("signup-password").value;
+
+            try {
+                const response = await axios.post(`${API_URL}/signup`, {
+                    username: username,
+                    password: password
+                })
+
+                alert(`${username} signed up successfully`);
+            } catch (error) {
+                alert(error.response?.data?.message || "Signup Error")
+            }
+        };
+
+        const signin = async () => {
+            const username = document.getElementById("signin-username").value;
+            const password = document.getElementById("signin-password").value;
+
+            try {
+                const response = await axios.post(`${API_URL}/signin`, {
+                    username: username,
+                    password: password
+                })
+                localStorage.setItem("authToken", response.data.token);
+                alert(`${username} logged in successfully`);
+                getAndRenderUserInformation();
+            } catch (error) {
+                alert(error.response?.data?.message || "Signup Error")
+            }
+        };
+
+        const getAndRenderUserInformation = async () => {
+            const token = localStorage.getItem("authToken");
+            if (!token) return;
+
+            try {
+                const response = await axios.get(`${API_URL}/me`, {
+                    headers: { authorization: token }
+                });
+
+                document.getElementById("information").innerHTML = `
+                    <p> Welcome, <b> ${response.data.username} </b> </p>
+                `;
+            } catch (error) {
+                logout();
+            }
+        };
+
+        const logout = () => {
+            localStorage.removeItem('authToken');
+            document.getElementById("information").innerHTML = "Logged Out"
+        };
+
+        window.onload = () => getAndRenderUserInformation();
+    </script>
+</head>
+
+<body>
+    <div>
+        Signup
+        <input id="signup-username" type="text" name="username" placeholder="Username">
+        <input id="signup-password" type="password" name="password" placeholder="Password">
+        <button onclick="signup()">Submit</button>
+    </div>
+    <hr>
+    <div>
+        Signin
+        <input id="signin-username" type="text" name="username" placeholder="Username">
+        <input id="signin-password" type="password" name="password" placeholder="Password">
+        <button onclick="signin()">Submit</button>
+    </div>
+    <hr>
+    <div>
+        User information:
+        <div id="information">Not logged in yet</div>
+    </div>
+    <hr>
+    <div>
+        <button onclick="logout()">Logout</button>
+    </div>
+</body>
+
+</html>
