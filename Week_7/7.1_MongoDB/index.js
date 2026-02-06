@@ -2,11 +2,13 @@ const express = require('express');
 const { UserModel, TodoModel } = require('./db');
 const connectDB = require('./connection');
 const jwt = require('jsonwebtoken');
-const JWT_SECRET = "asguihivnhg1@1213411451erwtd3#3"
+const JWT_SECRET = process.env.JWT_SECRET
 
 const app = express();
 
 app.use(express.json());
+
+dotenv.config();
 
 connectDB();
 
