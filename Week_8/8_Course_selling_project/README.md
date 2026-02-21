@@ -1,4 +1,4 @@
-## Create a course selling app
+# Create a course selling app
 
 - Initialize a new Node.js project
 - Add Express, jsonwebtoken, mongoose to it as a dependency
@@ -12,6 +12,7 @@
 - Create the frontend
 
 Good to have
+
 - Use cookies instead of JWT for auth
 - Add a rate limiting middleware
 - Frontend in ejs (low priority)
