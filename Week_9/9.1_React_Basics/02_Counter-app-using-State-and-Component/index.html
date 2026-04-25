@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counter App</title>
+</head>
+
+<body>
+    <div id="buttonParent">
+
+    </div>
+    <script>
+        let state = {
+            count: 0,
+            // Added colors that look good with white text
+            colors: ["black", "#e74c3c", "#3498db", "#f39c12", "#27ae60"],
+            currentColor: "black"
+        }
+
+        function onButtonPress() {
+            state.count = state.count + 1;
+
+            // 1. Correct Math.random logic to pick a random index
+            const randomIndex = Math.floor(Math.random() * state.colors.length);
+            state.currentColor = state.colors[randomIndex];
+
+            buttonComponentReRender();
+        }
+
+        function buttonComponentReRender() {
+            document.getElementById('buttonParent').innerHTML = '';
+            const component = buttonComponent(state.count);
+            document.getElementById('buttonParent').appendChild(component);
+        }
+
+        function buttonComponent(count) {
+            const button = document.createElement('button');
+            button.innerHTML = "Counter " + count;
+            button.setAttribute('onClick', `onButtonPress()`);
+
+            // 2. Apply the style based on the current state
+            button.style.backgroundColor = state.currentColor;
+            button.style.color = "white"; // Make text readable
+            button.style.padding = "10px 20px";
+            button.style.border = "none";
+            button.style.borderRadius = "5px";
+            button.style.cursor = "pointer";
+
+            return button;
+        }
+
+        buttonComponentReRender();
+    </script>
+</body>
+
+</html>
