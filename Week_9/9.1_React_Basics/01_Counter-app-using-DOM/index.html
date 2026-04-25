@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counter app</title>
+</head>
+<style>
+    body {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        background-color: #f0f2f5;
+        /* Light grey background */
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .counter {
+        font-size: 8rem;
+        font-weight: bold;
+        color: #1a73e8;
+        /* Modern Blue */
+        text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 10px;
+    }
+
+    button {
+        height: 50px;
+        width: 150px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        background: #1a73e8;
+        color: #fff;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        transition: transform 0.1s, background 0.3s;
+        box-shadow: 0 4px 15px rgba(26, 115, 232, 0.3);
+    }
+
+    button:hover {
+        background: #1557b0;
+    }
+
+    button:active {
+        transform: scale(0.95);
+        /* Shrink effect on click */
+    }
+</style>
+
+<body>
+    <div class="counter">0</div>
+    <button id="btn" onclick="clickButton()">Click me</button>
+
+    <script>
+        function clickButton() {
+            let currentValue = document.querySelector('.counter').innerHTML
+            console.log(currentValue);
+            const newValue = parseInt(currentValue) + 1
+            console.log(newValue);
+            document.querySelector('.counter').innerHTML = newValue
+
+        }
+        clickButton()
+    </script>
+</body>
+
+</html>
