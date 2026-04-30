@@ -7,9 +7,9 @@ interface JwtPayload {
 
 export const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
     const JWT_SECRET = process.env.JWT_SECRET;
-    console.log("Cookies Before:", req.cookies);
+    // console.log("Cookies Before:", req.cookies);
     const token = req.cookies?.token;
-    console.log("Cookies After:", req.cookies);
+    // console.log("Cookies After:", req.cookies);
 
 
     if (!token) {
