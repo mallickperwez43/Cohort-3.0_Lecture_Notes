@@ -7,7 +7,6 @@ import { createContentSchema, updateContentSchema, shareLinkSchema } from "../va
 import { randomBytes } from "crypto";
 
 export const createContent = async (req: Request, res: Response) => {
-    console.log("Create Content hit. User ID:", req.userId);
     try {
         const parsed = createContentSchema.safeParse(req.body);
         if (!parsed.success) {
@@ -17,7 +16,6 @@ export const createContent = async (req: Request, res: Response) => {
             });
         }
 
-        // TypeScript now knows req.userId exists thanks to express.d.ts
         if (!req.userId) {
             return res.status(401).json({ message: "Unauthorized" });
         }
@@ -53,7 +51,6 @@ export const createContent = async (req: Request, res: Response) => {
             content
         });
     } catch (error: any) {
-        console.error("CREATE CONTENT ERROR:", error); // Check your VS Code terminal!
         return res.status(500).json({
             message: "Error adding content",
             details: error.message
@@ -84,7 +81,7 @@ export const getContent = async (req: Request, res: Response) => {
     } catch (error: any) {
         console.log(error);
         return res.status(500).json({
-            // message: "Error fetching content",
+            message: "Error fetching content",
             error: error
         });
     }
@@ -146,7 +143,7 @@ export const deleteContent = async (req: Request, res: Response) => {
 };
 
 export const shareBrain = async (req: Request, res: Response) => {
-    console.log(`Share value is : ${req.body.share}`);
+
     try {
         const parsed = shareLinkSchema.safeParse(req.body);
         if (!parsed.success) {
