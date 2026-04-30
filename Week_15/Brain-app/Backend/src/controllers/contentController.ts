@@ -100,25 +100,43 @@ export const updateContent = async (req: Request, res: Response) => {
         const contentId = req.params["contentId"] as string;
         if (!req.userId) return res.status(401).json({ message: "Unauthorized" });
 
+        const { tags: tagsStrings, ...otherData } = parsed.data;
+        let updateData: any = { ...otherData };
+
+        // 1. If the user sent new tags (as strings), convert them to IDs
+        if (tagsStrings) {
+            const tagsObject = await Promise.all(
+                tagsStrings.map(async (t) => {
+                    return await TagsModel.findOneAndUpdate(
+                        { title: t.toLowerCase().trim() },
+                        { title: t.toLowerCase().trim() },
+                        { upsert: true, new: true, setDefaultsOnInsert: true }
+                    );
+                })
+            );
+            updateData.tags = tagsObject.filter(tag => tag !== null).map(tag => tag!._id);
+        }
+
+        // 2. Perform the update
         const updatedContent = await ContentModel.findOneAndUpdate(
             {
                 _id: contentId,
-                userId: req.userId
+                userId: req.userId // Ensure user owns the content
             },
-            { $set: parsed.data },
+            { $set: updateData },
             { new: true }
-        );
+        ).populate("tags", "title");
 
         if (!updatedContent) {
-            return res.status(404).json({ message: "Content not found or unauthorized" });
+            return res.status(404).json({ message: "Content not found" });
         }
 
         return res.json({
             message: "Content updated successfully",
             content: updatedContent
         });
-    } catch (error) {
-        return res.status(500).json({ message: "Error updating content" });
+    } catch (error: any) {
+        return res.status(500).json({ message: "Error updating content", error: error.message });
     }
 };
 
