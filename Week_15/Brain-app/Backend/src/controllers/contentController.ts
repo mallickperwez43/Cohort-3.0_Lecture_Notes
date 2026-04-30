@@ -146,6 +146,7 @@ export const deleteContent = async (req: Request, res: Response) => {
 };
 
 export const shareBrain = async (req: Request, res: Response) => {
+    console.log(`Share value is : ${req.body.share}`);
     try {
         const parsed = shareLinkSchema.safeParse(req.body);
         if (!parsed.success) {
