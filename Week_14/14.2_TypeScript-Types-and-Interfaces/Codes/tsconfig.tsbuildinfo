@@ -1,0 +1,1 @@
+{"root":["./src/01_interface.ts","./src/02_interface-with-fn.ts","./src/03_class-implement-in-interface.ts","./src/04_multiple-interfaces.ts","./src/05_abstract-class.ts","./src/06_types.ts","./src/07_union-and-intersections.ts","./src/08_assignment-interfaceandtypes.ts","./src/09_arrays-in-ts.ts","./src/10_enums.ts","./src/11_generics.ts"],"version":"6.0.3"}
