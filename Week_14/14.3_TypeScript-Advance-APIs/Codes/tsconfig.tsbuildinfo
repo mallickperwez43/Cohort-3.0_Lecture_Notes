@@ -1,0 +1,1 @@
+{"root":["./src/01_pre-requisites.ts","./src/02_pick.ts","./src/03_partial.ts","./src/04_readonly.ts","./src/05_records-and-maps.ts","./src/06_exclude.ts","./src/07_type-inference-zod.ts"],"version":"6.0.3"}
