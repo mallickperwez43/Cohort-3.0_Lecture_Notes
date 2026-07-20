@@ -20,9 +20,11 @@ export const createContent = async (req: Request, res: Response) => {
             return res.status(401).json({ message: "Unauthorized" });
         }
 
+        let tagIds: string[] = [];
+
+
         const { title, link, type, tags: tagsStrings } = parsed.data;
 
-        let tagIds: string[] = [];
 
         if (tagsStrings && tagsStrings.length > 0) {
             const tagsObject = await Promise.all(
@@ -40,7 +42,7 @@ export const createContent = async (req: Request, res: Response) => {
 
         const content = await ContentModel.create({
             title,
-            link,
+            link: link || "",
             type,
             tags: tagIds,
             userId: req.userId

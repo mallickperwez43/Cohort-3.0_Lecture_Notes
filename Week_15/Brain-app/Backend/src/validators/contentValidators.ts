@@ -1,10 +1,10 @@
 import { z } from "zod";
 
-const contentTypeEnum = z.enum(['image', 'video', 'article', 'audio']);
+const contentTypeEnum = z.enum(['image', 'video', 'article', 'audio', 'tweet']);
 
 export const createContentSchema = z.object({
     title: z.string().min(3, "Title should be at least 3 characters"),
-    link: z.string("Please enter a valid URL (e.g., https://google.com)"),
+    link: z.url("Please enter a valid URL (e.g., https://google.com)").optional(),
     type: contentTypeEnum,
     tags: z.array(z.string()).default([]),
 });

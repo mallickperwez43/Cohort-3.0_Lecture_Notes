@@ -10,7 +10,7 @@ export interface IContent extends Document {
 };
 
 const ObjectId = Schema.Types.ObjectId;
-const contentTypes = ['image', 'video', 'article', 'audio'];
+const contentTypes = ['image', 'video', 'article', 'audio', 'tweet'];
 
 const contentSchema = new Schema({
     title: {

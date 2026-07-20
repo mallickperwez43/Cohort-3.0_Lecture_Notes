@@ -94,3 +94,18 @@ export const logout = (_req: Request, res: Response) => {
     res.clearCookie("token");
     return res.json({ message: "Logged out successfully" });
 };
+
+export const me = async (req: Request, res: Response) => {
+    try {
+        const token = req.cookies?.token;
+        if (!token) return res.status(401).json({ message: "Unauthorized" });
+
+        const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as { userId: string };
+        const user = await UserModel.findById(decoded.userId).select("-password");
+        if (!user) return res.status(401).json({ message: "Unauthorized" });
+
+        return res.json({ user });
+    } catch {
+        return res.status(401).json({ message: "Unauthorized" });
+    }
+};
