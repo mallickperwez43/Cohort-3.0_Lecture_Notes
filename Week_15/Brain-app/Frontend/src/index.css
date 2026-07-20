@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+@theme {
+  
+  --color-btn-primary-bg: #5046e4;
+  --color-btn-primary-text: #fbf9ff;
+
+  --color-btn-secondary-bg: #e0e7fe;
+  --color-btn-secondary-text: #534db6;
+
+  --color-main-bg: #f9fafb;
+  --color-date-text: #9297a1;
+  --color-sidebar-comp-text: #737a85;
+  
+}
