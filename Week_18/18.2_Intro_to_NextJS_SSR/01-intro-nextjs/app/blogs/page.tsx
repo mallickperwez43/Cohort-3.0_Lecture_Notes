@@ -6,8 +6,8 @@ interface Todo {
     completed: boolean;
 }
 
-async function getBlogs() {
-    const response = await axios.get<Todo[]>("https://jsonplaceholder.typicode.com/todos");
+async function getBlogs() { // Using the benefit of SSR in next js to get prefilled HTML
+    const response = await axios.get<Todo[]>("https://jsonplaceholder.typicode.com/todos"); // The Next JS way to network call and get data on next js server to be able to return a prefilled HTML 
     return response.data;
 }
 
